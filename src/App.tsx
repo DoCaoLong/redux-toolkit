@@ -2,12 +2,16 @@ import React, { useEffect } from "react";
 import "./App.css";
 import icon from "constants/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { Store } from "redux/store.interface";
+import { IStore } from "redux/store.interface";
 import { getAsyncOrg } from "redux/org";
+import { decrease, increase } from "redux/counter";
 
 function App() {
     const dispatch = useDispatch();
-    const { orgs, page, totalItem } = useSelector((state: Store) => state.ORGS);
+    const { orgs, page, totalItem } = useSelector(
+        (state: IStore) => state.ORGS
+    );
+    const count = useSelector((state: IStore) => state.COUNTER);
 
     useEffect(() => {
         dispatch(
@@ -29,23 +33,23 @@ function App() {
     };
     console.log(orgs);
 
+    const handleIncrease = () => {
+        dispatch(increase());
+    };
+    const handleDecrease = () => {
+        dispatch(decrease());
+    };
+
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={icon.logoReact} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-                <button onClick={onMore}>On More</button>
-            </header>
+            <button onClick={onMore}>On More</button>
+            <div style={{ display: "flex", alignItems: "center" }}>
+                <button disabled={count <= 0} onClick={() => handleDecrease()}>
+                    -
+                </button>
+                <button>Couter: {count}</button>
+                <button onClick={() => handleIncrease()}>+</button>
+            </div>
         </div>
     );
 }

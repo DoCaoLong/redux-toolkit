@@ -22,6 +22,7 @@ export const getAsyncOrg: any = createAsyncThunk(
     async (values, { rejectWithValue }) => {
         try {
             const res: any = await api.getOragnizations(values);
+            console.log(res);
             const payload = {
                 orgs: res.data.context.data,
                 totalItem: res.data.context.total,
@@ -42,7 +43,7 @@ const orgSlice = createSlice({
     name: "ORGS",
     initialState,
     reducers: {
-        toggleFavorite: (state, actions) => {},
+        toggleFavorite: (state, actions) => {}, // action
     },
     // extraReducers: {
     //     [getAsyncOrg.pending]: (state) => {

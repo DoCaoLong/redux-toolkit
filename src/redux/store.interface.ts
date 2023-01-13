@@ -1,5 +1,6 @@
 import { IOrgsStore } from "./org";
 
-export interface Store {
+export interface IStore {
     ORGS: IOrgsStore;
+    COUNTER: any;
 }
